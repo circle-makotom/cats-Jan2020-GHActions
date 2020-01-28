@@ -2,15 +2,11 @@ version: 2
 
 jobs:
   build:
-    docker:
-      - image: circleci/node:latest-browsers
-
-    resource_class: small
+    machine: true
 
     steps:
       - checkout
-      - run: npm i
-      - run: npm run test
+      - run: w
 
 workflows:
   version: 2
