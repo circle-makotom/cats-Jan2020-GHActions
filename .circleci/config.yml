@@ -10,10 +10,18 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package-lock.json" }}
+            - v1-npm-deps
       - hello-build/hello-triggerer:
           to: CircleCI user
       - run: npm i
       - run: npm run test
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - .node_modules
 
   arch-check:
     docker:
