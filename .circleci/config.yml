@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+
+orbs:
+  hello-build: circleci/hello-build@0.0.14
 
 jobs:
   test:
@@ -7,6 +10,8 @@ jobs:
 
     steps:
       - checkout
+      - hello-build/hello-triggerer:
+          to: CircleCI user
       - run: npm i
       - run: npm run test
 
@@ -44,3 +49,4 @@ workflows:
       - deploy:
           requires:
             - test
+            - arch-check
