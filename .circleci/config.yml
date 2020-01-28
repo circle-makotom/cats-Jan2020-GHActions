@@ -1,8 +1,18 @@
 version: 2
 
 jobs:
-  build:
-    machine: true
+  test:
+    docker:
+      - image: circleci/node:latest-browsers
+
+    steps:
+      - checkout
+      - run: npm i
+      - run: npm run test
+
+  deploy:
+    docker:
+      - image: circleci/python:latest
 
     steps:
       - checkout
@@ -12,4 +22,7 @@ workflows:
   version: 2
   test-and-deploy:
     jobs:
-      - build
+      - test
+      - deploy:
+          requires:
+            - test
