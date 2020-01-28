@@ -24,12 +24,23 @@ jobs:
     steps:
       - run: env
 
+  remote-docker-check:
+    docker:
+      - image: circleci/node:latest-browsers
+
+    steps:
+      - run: env
+      - setup_remote_docker
+      - run: env
+      - run: docker run archlinux/base env
+
 workflows:
   version: 2
   test-and-deploy:
     jobs:
       - test
       - arch-check
+      - remote-docker-check
       - deploy:
           requires:
             - test
