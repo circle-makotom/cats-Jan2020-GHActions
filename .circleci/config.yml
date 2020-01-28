@@ -15,15 +15,14 @@ jobs:
       - image: archlinux/base:latest
 
     steps:
-      - run: w
+      - run: env
 
   deploy:
     docker:
       - image: circleci/python:latest
 
     steps:
-      - checkout
-      - run: w
+      - run: env
 
 workflows:
   version: 2
