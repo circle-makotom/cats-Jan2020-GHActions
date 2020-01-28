@@ -10,6 +10,13 @@ jobs:
       - run: npm i
       - run: npm run test
 
+  arch-check:
+    docker:
+      - image: archlinux/base:latest
+
+    steps:
+      - run: w
+
   deploy:
     docker:
       - image: circleci/python:latest
@@ -23,6 +30,7 @@ workflows:
   test-and-deploy:
     jobs:
       - test
+      - arch-check
       - deploy:
           requires:
             - test
