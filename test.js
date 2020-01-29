@@ -5,7 +5,7 @@ const firefoxDriver = require('selenium-webdriver/firefox');
 describe('Cat', function () {
     let driver = null;
 
-    this.timeout(10000);
+    this.timeout(30000);
 
     before(async () => {
         const fxOptions = new firefoxDriver.Options();
