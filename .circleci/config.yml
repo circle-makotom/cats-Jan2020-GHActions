@@ -1,7 +1,4 @@
-version: 2.1
-
-orbs:
-  hello-build: circleci/hello-build@0.0.14
+version: 2
 
 jobs:
   test:
@@ -14,8 +11,6 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package-lock.json" }}
             - v1-npm-deps
-      - hello-build/hello-triggerer:
-          to: CircleCI user
       - run: npm i
       - run: npm run test
       - save_cache:
