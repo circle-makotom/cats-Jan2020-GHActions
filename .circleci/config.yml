@@ -7,8 +7,8 @@ jobs:
 
     steps:
       - checkout
-      - run: touch ../hello
-      - run: touch meow
+      - run: echo "Hello!" > ../hello
+      - run: echo "Meow!" > meow
       - store_artifacts:
           path: ../hello
       - store_artifacts:
