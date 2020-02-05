@@ -13,6 +13,8 @@ jobs:
             - v1-npm-deps
       - run: npm i
       - run: npm run test
+      - store_artifacts:
+          path: index.html
       - save_cache:
           key: v1-npm-deps-{{ checksum "package-lock.json" }}
           paths:
@@ -25,7 +27,7 @@ jobs:
     steps:
       - run: env
 
-  arch-check2:
+  machine:
     machine: true
     steps:
       - run: env
@@ -46,8 +48,9 @@ workflows:
     jobs:
       - test
       - arch-check
-      - arch-check2
+      - machine
       - remote-docker-check:
           requires:
             - test
             - arch-check
+            - machine
