@@ -1,52 +1,11 @@
-version: 2.1
-
-orbs:
-  hello-build: circleci/hello-build@0.0.14
+version: 2
 
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/node:latest-browsers
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-npm-deps-{{ checksum "package-lock.json" }}
-            - v1-npm-deps
-      - hello-build/hello-triggerer:
-          to: CircleCI user
       - run: npm i
-      - run: npm run test
-      - save_cache:
-          key: v1-npm-deps-{{ checksum "package-lock.json" }}
-          paths:
-            - .node_modules
-
-  arch-check:
-    docker:
-      - image: archlinux/base:latest
-
-    steps:
-      - run: env
-
-  remote-docker-check:
-    docker:
-      - image: circleci/node:latest-browsers
-
-    steps:
-      - run: env
-      - setup_remote_docker
-      - run: env
-      - run: docker run archlinux/base env
-
-workflows:
-  version: 2
-  test-and-deploy:
-    jobs:
-      - test
-      - arch-check
-      - remote-docker-check:
-          requires:
-            - test
-            - arch-check
+      - run: npm test
