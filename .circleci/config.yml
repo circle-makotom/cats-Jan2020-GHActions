@@ -8,8 +8,11 @@ jobs:
     steps:
       - checkout
       - run: touch ../hello
+      - run: touch meow
       - store_artifacts:
           path: ../hello
+      - store_artifacts:
+          path: meow
 
 workflows:
   version: 2
