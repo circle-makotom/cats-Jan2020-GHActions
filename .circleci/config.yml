@@ -18,6 +18,8 @@ jobs:
           to: CircleCI user
       - run: npm i
       - run: npm run test
+      - store_artifacts:
+          path: index.html
       - save_cache:
           key: v1-npm-deps-{{ checksum "package-lock.json" }}
           paths:
@@ -27,6 +29,12 @@ jobs:
     docker:
       - image: archlinux/base:latest
 
+    steps:
+      - run: env
+
+  machine:
+    machine:
+      image: circleci/classic:latest
     steps:
       - run: env
 
@@ -46,7 +54,9 @@ workflows:
     jobs:
       - test
       - arch-check
+      - machine
       - remote-docker-check:
           requires:
             - test
             - arch-check
+            - machine
